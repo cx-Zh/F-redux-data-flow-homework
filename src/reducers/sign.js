@@ -1,6 +1,10 @@
 const sign = (state = 'Sign in', action) => {
   if (action.type === 'SET_SIGN') {
-    return action.payload;
+    if (state === 'Sign in') {
+      return 'Sign out';
+    }
+    return 'Sign in';
+    // return action.payload;
   }
   return state;
 };
