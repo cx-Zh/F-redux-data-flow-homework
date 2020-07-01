@@ -11,8 +11,8 @@ class Header extends Component {
         <div className="header-wrapper">
           {this.props.sign === 'Sign out' ? (
             <span>
-              <img src="" alt="头像" />
-              <span className="username">用户名</span>
+              <img src={this.props.user.avatar} alt="头像" />
+              <span className="username">{this.props.user.name}</span>
             </span>
           ) : null}
 

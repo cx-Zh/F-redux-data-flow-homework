@@ -1,9 +1,6 @@
 const user = (state = {}, action) => {
   if (action.type === 'GET_USER') {
-    if (state) {
-      return action.payload;
-    }
-    return {};
+    return action.payload;
   }
   return state;
 };

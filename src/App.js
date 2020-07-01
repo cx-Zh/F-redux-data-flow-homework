@@ -5,6 +5,7 @@ import Menu from './layout/Menu';
 import Home from './views/Home';
 import { modules } from './utils';
 import './App.scss';
+// import {connect} from "react-redux";
 
 class App extends Component {
   render() {
@@ -33,5 +34,12 @@ class App extends Component {
     );
   }
 }
+
+// const mapStateToProps = ({ sign, user }) => ({
+//   sign,
+//   user
+// });
+//
+// export default connect(mapStateToProps)(App);
 
 export default App;
