@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './Header.scss';
 import { connect } from 'react-redux';
-import { setSign } from '../actions';
+import { fetchUserDetails, setSign } from '../actions';
+import { fetchPosts } from '../GetUserInfo';
 
 class Header extends Component {
   render() {
@@ -14,12 +15,11 @@ class Header extends Component {
               <span className="username">用户名</span>
             </span>
           ) : null}
-          {/*<img src="" alt="头像" />*/}
-          {/*<span className="username">用户名</span>*/}
 
           <a className="sign" onClick={this.props.handleSignChange}>
             {this.props.sign}
           </a>
+          {console.log(this.props.user)}
         </div>
       </header>
     );
@@ -29,11 +29,17 @@ class Header extends Component {
 const mapDispatchToProps = dispatch => ({
   handleSignChange() {
     dispatch(setSign());
+    fetchPosts().then(([response, json]) => {
+      if (response.status === 200) {
+        dispatch(fetchUserDetails(json));
+      }
+    });
   }
 });
 
-const mapStateToProps = ({ sign }) => ({
-  sign
+const mapStateToProps = ({ sign, user }) => ({
+  sign,
+  user
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

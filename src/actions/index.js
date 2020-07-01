@@ -4,3 +4,10 @@ export const setSign = sign => {
     payload: sign
   };
 };
+
+export const fetchUserDetails = user => {
+  return {
+    type: 'GET_USER',
+    payload: user
+  };
+};

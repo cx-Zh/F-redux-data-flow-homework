@@ -1,14 +1,32 @@
+import { fetchUserDetails } from './actions';
+
+export function fetchPosts() {
+  console.log('fetchPosts');
+  const URL = 'https://my-json-server.typicode.com/kevindongzg/demo/login';
+  return (
+    fetch(URL, { method: 'GET' })
+      //   .then(response => {
+      //     console.log(response);
+      //   return response.json();
+      // })
+      // .then(data => {
+      //   console.log(data);})
+      .then(response => Promise.all([response, response.json()]))
+  );
+}
+
 export function GetUserInfo() {
-  return fetch(`https://my-json-server.typicode.com/kevindongzg/demo/login`)
-    .then(response => {
-      return response.json();
-    })
-    .then(data => {
-      console.log(data);
-      document.getElementById('name').innerHTML = data.name;
-      document.getElementById('id').innerText = data.id;
-      document.getElementById('avatar').innerText = data.avatar;
-      document.getElementById('permissions').innerText = data.permissions;
-    })
-    .catch(err => console.log(err));
+  console.log('GetUserInfo');
+  return dispatch => {
+    return fetchPosts().then(([response, json]) => {
+      console.log(response);
+      if (response.status === 200) {
+        dispatch(fetchUserDetails(json));
+      }
+    });
+    //   return fetchPosts().then(response => {
+    //     console.log(response);
+    //     dispatch(fetchUserDetails(response));
+    //   })
+  };
 }
