@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Header from './layout/Header';
 import Menu from './layout/Menu';
 import Home from './views/Home';
 import { modules } from './utils';
 import './App.scss';
-// import {connect} from "react-redux";
 
 class App extends Component {
   render() {
@@ -19,11 +19,13 @@ class App extends Component {
               <Route exact path="/">
                 <Home />
               </Route>
-              {modules.map(({ path, component }) => (
-                <Route key={path} path={path}>
-                  {component}
-                </Route>
-              ))}
+              {this.props.sign === 'Sign out' && this.props.user.permissions
+                ? modules.map(({ path, component }) => (
+                    <Route key={path} path={path}>
+                      {component}
+                    </Route>
+                  ))
+                : null}
               <Route path="*">
                 <Home />
               </Route>
@@ -35,11 +37,11 @@ class App extends Component {
   }
 }
 
-// const mapStateToProps = ({ sign, user }) => ({
-//   sign,
-//   user
-// });
-//
-// export default connect(mapStateToProps)(App);
+const mapStateToProps = ({ sign, user }) => ({
+  sign,
+  user
+});
 
-export default App;
+export default connect(mapStateToProps)(App);
+
+// export default App;
